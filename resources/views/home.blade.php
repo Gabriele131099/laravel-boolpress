@@ -2,22 +2,29 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    <!-- lista dei libri -->
+    
+    <div class="row">
 
+        @foreach($books as $book)
+            <div class="card col-md-3" style="width: 18rem;">
+                <img class="card-img-top" src="{{ $book->picture }}" alt="Card image cap">
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <h5 class="card-title">{{ $book->title }}</h5>
+                    <p class="card-text">{{ $book->abstract }}</p>
+                    <p class="card-text">{{ $book->price }}</p>
+                    <p class="card-text"><strong>{{ $book->genere }}</strong></p>
+                    <a href="#" class="btn btn-primary">Buy</a>
+
+                    @if(Auth::check())
+                        <a href="{{ route('books.edit', $book) }}" class="btn btn-success">Edit</a>
                     @endif
 
-                    {{ __('You are logged in!') }}
                 </div>
             </div>
-        </div>
+        @endforeach
+
     </div>
+
 </div>
 @endsection
